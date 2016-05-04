@@ -9,6 +9,8 @@ public class Tank : MonoBehaviour {
 	public float ShellSpeed = 20;
 	public int hp=100;
 	public GameObject _TankExplosion;
+	public AudioClip _AudioTankExplosion;
+	public AudioClip  _AudioShot; 
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +25,8 @@ public class Tank : MonoBehaviour {
 
 			// 赋予子弹速度
 			go.GetComponent<Rigidbody> ().velocity = go.transform.forward * ShellSpeed;
+			AudioSource.PlayClipAtPoint (_AudioShot, transform.position);
+
 		}
 	}
 		
@@ -34,6 +38,7 @@ public class Tank : MonoBehaviour {
 
 		//死了。
 		if (hp <= 0) {
+			AudioSource.PlayClipAtPoint (_AudioTankExplosion, transform.position);
 			GameObject go = GameObject.Instantiate (_TankExplosion, transform.position+ Vector3.up , transform.rotation) as GameObject;
 			GameObject.Destroy (this.gameObject);
 			GameObject.Destroy (go, 1.0f);
