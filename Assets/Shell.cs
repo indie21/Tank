@@ -18,6 +18,9 @@ public class Shell : MonoBehaviour {
 	public void OnTriggerEnter(Collider other) {
 		GameObject.Instantiate (_ShellExplosionPrefeb, transform.position, transform.rotation);
 		GameObject.Destroy (this.gameObject);
-		
+
+		if (other.tag == "Tank") {
+			other.SendMessage ("TakeDamage");
+		}
 	}
 }

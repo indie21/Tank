@@ -7,6 +7,8 @@ public class Tank : MonoBehaviour {
 	public GameObject ShellPrefeb;
 	public KeyCode FireKeyCode = KeyCode.Space;
 	public float ShellSpeed = 20;
+	public int hp=100;
+	public GameObject _TankExplosion;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +23,20 @@ public class Tank : MonoBehaviour {
 
 			// 赋予子弹速度
 			go.GetComponent<Rigidbody> ().velocity = go.transform.forward * ShellSpeed;
+		}
+	}
+		
+	void TakeDamage() {
+		if (hp <= 0) {
+			return;
+		}
+		hp -= Random.Range (30, 40);
+
+		//死了。
+		if (hp <= 0) {
+			GameObject go = GameObject.Instantiate (_TankExplosion, transform.position+ Vector3.up , transform.rotation) as GameObject;
+			GameObject.Destroy (this.gameObject);
+			GameObject.Destroy (go, 1.0f);
 		}
 	}
 }
