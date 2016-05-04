@@ -17,6 +17,11 @@ public class Follow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (player1 == null || player2 == null) {
+			return;
+		}
+
 		transform.position = (player1.position + player2.position) / 2 + offset;
 		float distance = Vector3.Distance (player1.position, player2.position);
 		float size = distance * 1;
